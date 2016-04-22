@@ -1,0 +1,10 @@
+#! /bin/sh
+
+export LD_LIBRARY_PATH=/user/kmaksyme/home/compiles/OpenMEEG/install/lib64/:/user/kmaksyme/home/compiles/hdf5/install/lib64/:/user/kmaksyme/home/compiles/matio/install/lib64/
+export PATH=$PATH:/user/kmaksyme/home/compiles/OpenMEEG/install/bin/
+export PYTHONPATH=/user/kmaksyme/home/compiles/OpenMEEG/install/lib64/python2.7/site-packages
+
+#echo $PATH
+
+exec python -i
+#sh ./compute_leadfields.sh
