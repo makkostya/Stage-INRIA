@@ -18,14 +18,17 @@ xmax = 1
 nx = 25
 ny = 25
 
-gridtype = 'log'
-mtype = '4vn' # measure type
+gridtype = raw_input("Enter grid type ('log' or 'lin'):\n")
+#gridtype = 'log'
+#mtype = '4vn' # measure type
+mtype=raw_input("Enter measure type:\n")
 
-if gridtype is 'log':
+
+if gridtype == 'log':
     x = np.logspace(np.log10(xmin),np.log10(xmax),nx)
     y = np.logspace(np.log10(ymin),np.log10(ymax),ny)
     matdir = './Matriceslog/eeg_leadfield'
-if gridtype is 'lin':
+if gridtype == 'lin':
     x = np.linspace(xmin,xmax,nx)
     y = np.linspace(ymin,ymax,ny)
     matdir = './Matrices/eeg_leadfield'
@@ -64,8 +67,8 @@ zz2 = np.reshape(zz2,(nx,ny))
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-#ax.plot_surface(xx[1:-1,1:-1], yy[1:-1,1:-1], zz[1:-1,1:-1], rstride=1, cstride=1, cmap=cm.coolwarm)
-ax.plot_surface(xx[1:-1,1:-1], yy[1:-1,1:-1], zz2[1:-1,1:-1], rstride=1, cstride=1, cmap=cm.coolwarm)
+ax.plot_surface(xx[1:-1,1:-1], yy[1:-1,1:-1], zz[1:-1,1:-1], rstride=1, cstride=1, cmap=cm.coolwarm)
+#ax.plot_surface(xx[1:-1,1:-1], yy[1:-1,1:-1], zz2[1:-1,1:-1], rstride=1, cstride=1, cmap=cm.coolwarm)
 plt.xlabel('Brain')
 plt.ylabel('Scull')
 plt.show()

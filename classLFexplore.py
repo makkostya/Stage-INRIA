@@ -93,13 +93,13 @@ class LF_explore:
             S = S - self.LF[self.sub2ind(ii,jj)]
         return np.linalg.norm(S)
     def VTmeasure(self,mtype):
-	if mtype is '4v':
+	if mtype == '4v':
 	    vt = lambda i, j: self.VT(i,j,4,0)
-	if mtype is '8v':
+	if mtype == '8v':
 	    vt = lambda i, j: self.VT(i,j,8,0)
-	if mtype is '4vn':
+	if mtype == '4vn':
 	    vt = lambda i, j: self.VT(i,j,4,1)
-	if mtype is '8vn':
+	if mtype == '8vn':
 	    vt = lambda i, j: self.VT(i,j,8,1)
         for i in range(len(self.x)):
             for j in range(len(self.y)):
