@@ -63,7 +63,7 @@ class LF_explore:
     def sub2ind(self,i,j):
         lx = len(self.x)
         ly = len(self.y)
-        return i*ly + j
+        return j*lx + i
     def VT(self,i,j,nv,norm):
 	if nv == 8:
 	    vois_i = [0, -1, -1, -1, 0, 1, 1, 1]
@@ -105,3 +105,33 @@ class LF_explore:
             for j in range(len(self.y)):
                 self.measure = np.append(self.measure,vt(i,j))
         return self.measure
+    def pointdetect(self,x,y):
+	xi = np.searchsorted(self.x,x) - 1
+	yi = np.searchsorted(self.y,y) - 1 
+	x0 = x - self.x[xi]
+	y0 = y - self.y[yi]
+	cx = self.x[xi + 1] - self.x[xi]
+	cy = self.y[yi + 1] - self.y[yi]
+	a = cy/cx
+	b = cy
+	c = y0 + a*x0 - b
+	if c<=0:
+	    i1, j1 = xi, yi
+	else:
+	    i1, j1 = xi+1, yi+1
+	i2, j2 = xi+1, yi
+	i3, j3 = xi, yi+1
+	k1, k2, k3 = self.sub2ind(i1,j1), self.sub2ind(i2,j2), self.sub2ind(i3,j3)
+	A = np.array([[self.x[i1], self.x[i2], self.x[i3]],[self.y[j1], self.y[j2], self.y[j3]],[1, 1, 1]])
+	b = np.array([x, y, 1])
+	coef = np.linalg.solve(A,b)
+	#return [[i1, i2, i3],[j1, j2, j3],coef]
+	return [[k1, k2, k3], coef]
+    def LFinterpol(self, x, y):
+	LFnew = []
+	for i in range(len(x)):
+	    res = self.pointdetect(x[i],y[i])
+	    idx = res[0]
+	    coef = res[1]
+	    LFnew.append(self.LF[idx[0]]*coef[0] + self.LF[idx[1]]*coef[1] + self.LF[idx[2]]*coef[2])
+	return LFnew
