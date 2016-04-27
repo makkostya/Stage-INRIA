@@ -27,11 +27,12 @@ xmax = 3
 nx = 3
 ny = 3
 """
-#gridtype = raw_input("Enter grid type ('log' or 'lin'):\n")
-#mtype=raw_input("Enter measure type:\n")
+gridtype = raw_input("Enter grid type ('log' or 'lin'):\n")
+mtype=raw_input("Enter measure type:\n")
+plottype=raw_input("Enter plot type:\n")
 
-gridtype = 'lin'
-mtype = '4vn' # measure type
+#gridtype = 'lin'
+#mtype = '4vn' # measure type
 
 
 if gridtype == 'log':
@@ -113,18 +114,19 @@ zz = np.reshape(zz,(nx,ny))
 zz2 = np.reshape(zz2,(nx,ny))
 zztest = np.reshape(zztest,(nx-1,ny-1))
 
-
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-#ax.plot_surface(xx[1:-1,1:-1], yy[1:-1,1:-1], zz[1:-1,1:-1], rstride=1, cstride=1, cmap=cm.coolwarm)
-#ax.plot_surface(xx[1:-1,1:-1], yy[1:-1,1:-1], zz2[1:-1,1:-1], rstride=1, cstride=1, cmap=cm.coolwarm)
-ax.plot_surface(xx2, yy2, zztest, rstride=1, cstride=1, cmap=cm.coolwarm)
-plt.xlabel('Brain')
-plt.ylabel('Scull')
-plt.show()
-
-"""
-plt.plot(xx, yy,'ro')
-plt.plot(xx2,yy2,'bx')
-plt.show()
-"""
+if plottype != 'mesh':
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    if plottype == 'var':
+        ax.plot_surface(xx[1:-1,1:-1], yy[1:-1,1:-1], zz[1:-1,1:-1], rstride=1, cstride=1, cmap=cm.coolwarm)
+    if plottype == 'norm':
+        ax.plot_surface(xx[1:-1,1:-1], yy[1:-1,1:-1], zz2[1:-1,1:-1], rstride=1, cstride=1, cmap=cm.coolwarm)
+    if plottype == 'err':
+        ax.plot_surface(xx2, yy2, zztest, rstride=1, cstride=1, cmap=cm.coolwarm)
+    plt.xlabel('Brain')
+    plt.ylabel('Scull')
+    plt.show()
+else:
+    plt.plot(xx, yy,'ro')
+    plt.plot(xx2,yy2,'bx')
+    plt.show()
