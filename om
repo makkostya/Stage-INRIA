@@ -6,5 +6,6 @@ export PYTHONPATH=/user/kmaksyme/home/compiles/OpenMEEG/install/lib64/python2.7/
 
 #echo $PATH
 
-exec python -i
+#exec python -i
+python test.py
 #sh ./compute_leadfields.sh
